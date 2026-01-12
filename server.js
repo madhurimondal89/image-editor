@@ -1,16 +1,22 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
-// পাবলিক ফোল্ডার থেকে স্ট্যাটিক ফাইল সার্ভ করা
+// পাবলিক ফোল্ডার সেট করা (সঠিক পাথ পাওয়ার জন্য __dirname ব্যবহার করা জরুরি)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// হোম পেজ রুট
+// হোম রুট
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// অন্য যেকোনো রুটে গেলে হোমপেজে পাঠাবে (404 ফিক্স)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
