@@ -1,18 +1,25 @@
 # বেস ইমেজ
 FROM node:18-alpine
 
-# ১. Health Check এর জন্য curl ইন্সটল করা (এটাই আসল ফিক্স)
-RUN apk add --no-cache curl
-
-# ওয়ার্কিং ডিরেক্টরি
+# অ্যাপ ডিরেক্টরি
 WORKDIR /app
 
-# ফাইল কপি এবং ইন্সটল
+# প্যাকেজ ফাইল কপি
 COPY package*.json ./
-RUN npm install
-COPY . .
 
-# পোর্ট এবং এনভায়রনমেন্ট
+# ডিপেন্ডেন্সি ইন্সটল
+RUN npm install
+
+# ১. পাবলিক ফোল্ডার আলাদাভাবে কপি করা (যাতে নিশ্চিত কপি হয়)
+COPY public ./public
+
+# ২. সার্ভার ফাইল কপি করা
+COPY server.js .
+
+# curl ইন্সটল (Healthcheck এর জন্য)
+RUN apk add --no-cache curl
+
+# পোর্ট সেটআপ
 EXPOSE 3000
 ENV PORT=3000
 ENV HOST=0.0.0.0
