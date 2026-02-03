@@ -78,10 +78,39 @@ document.getElementById('upload-file').addEventListener('change', (e) => {
 });
 
 // 2. Export / Save
+// 2. Export / Save
 document.getElementById('btn-save').addEventListener('click', () => {
-    const imageName = imageEditor.getImageName();
-    const dataURL = imageEditor.toDataURL();
-    saveAs(dataURL, imageName || 'pixelcraft-pro-edit.png');
+    const btn = document.getElementById('btn-save');
+    const originalText = btn.innerText;
+
+    try {
+        btn.innerText = '⏳ Processing...';
+
+        const imageName = imageEditor.getImageName() || 'pixelcraft-pro-edit.png';
+        const dataURL = imageEditor.toDataURL(); // Default is PNG
+
+        if (!dataURL || dataURL === 'data:,') {
+            throw new Error('Canvas is empty or tainted.');
+        }
+
+        // Native download method (No FileSaver dependency needed for DataURLs)
+        const link = document.createElement('a');
+        link.download = imageName;
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        btn.innerText = '✅ Saved!';
+    } catch (err) {
+        console.error('Export Failed:', err);
+        alert('Export failed. Please check console for details. (Note: External images must support CORS)');
+        btn.innerText = '❌ Error';
+    }
+
+    setTimeout(() => {
+        btn.innerText = originalText;
+    }, 2000);
 });
 
 // 3. Zoom Controls
