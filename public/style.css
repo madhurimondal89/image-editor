@@ -1,280 +1,140 @@
+/* Modern Theme Variables */
 :root {
-    --bg-dark: #0f172a;       /* Deep Slate Background */
-    --glass: rgba(15, 23, 42, 0.90); /* Glass Effect */
-    --primary: #6366f1;       /* Indigo Neon */
-    --accent: #06b6d4;        /* Cyan Neon */
-    --text-main: #f8fafc;     /* White Text */
-    --text-muted: #94a3b8;    /* Gray Text */
-    --border: rgba(255, 255, 255, 0.15); /* Border Line */
+    --bg-color: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --primary-color: #6366f1;
+    --accent-color: #06b6d4;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --font-family: 'Inter', sans-serif;
 }
 
-body, html {
-    margin: 0; padding: 0;
-    height: 100%; width: 100%;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    overflow: hidden; /* বডির ডিফল্ট স্ক্রল বন্ধ */
-}
-
-/* --- Editor Container (With Scrollbar) --- */
-#tui-image-editor-container {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100vw;
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-family);
     height: 100vh;
-    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-    z-index: 0;
-    
-    /* ভার্টিক্যাল স্ক্রল চালু করা হলো */
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* App-like feel */
 }
 
-/* Custom Scrollbar Styling */
-#tui-image-editor-container::-webkit-scrollbar {
-    width: 8px;
-}
-#tui-image-editor-container::-webkit-scrollbar-track {
-    background: #0f172a; 
-}
-#tui-image-editor-container::-webkit-scrollbar-thumb {
-    background: #334155; 
-    border-radius: 4px;
-}
-#tui-image-editor-container::-webkit-scrollbar-thumb:hover {
-    background: var(--accent); 
+/* Glassmorphism Utilities */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: 16px;
+    padding: 1rem;
 }
 
-/* Force elements inside editor to fit height */
-.tui-image-editor-main-container,
-.tui-image-editor-main,
-.tui-image-editor-wrap {
-    height: 100% !important;
-    width: 100% !important;
-}
-
-/* --- 1. GLASS HEADER --- */
-.glass-header {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 96%;
-    max-width: 1400px;
-    height: 65px;
-    background: var(--glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
+/* Header */
+.app-header {
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
-    z-index: 1000;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    padding: 0 20px;
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom: var(--glass-border);
+    z-index: 100;
 }
 
-.brand-logo { display: flex; align-items: center; }
-.app-logo {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+.logo-area img { height: 32px; }
+
+/* Main Workspace */
+.main-workspace {
+    flex: 1;
+    display: flex;
+    height: calc(100vh - 60px);
+    position: relative;
+    background: #020617; /* Darker canvas bg */
 }
 
-.toolbar-actions { display: flex; align-items: center; gap: 10px; }
-.toolbar-center { flex-grow: 1; display: flex; justify-content: center; }
-.divider { width: 1px; height: 24px; background-color: var(--border); margin: 0 5px; }
+/* Editor Container */
+#tui-image-editor-container {
+    flex: 1;
+    height: 100% !important;
+}
+
+/* Custom Toolbar (Floating) */
+.custom-toolbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 50;
+}
+
+.tool-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
 /* Buttons */
 .btn {
-    padding: 10px 18px; border-radius: 12px; border: none;
-    font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s;
-    display: flex; align-items: center; gap: 8px; text-decoration: none; white-space: nowrap;
-}
-.btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
-
-.btn-secondary { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); }
-.btn-secondary:hover { background: rgba(255,255,255,0.15); }
-
-.btn-home { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-.btn-home:hover { background: var(--accent); color: #000; }
-
-/* Zoom & Opacity Controls */
-.zoom-group { display: flex; align-items: center; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 2px; border: 1px solid var(--border); }
-.btn-icon { background: transparent; border: none; color: var(--text-main); width: 30px; height: 30px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center; }
-.btn-icon:hover { color: var(--accent); }
-.zoom-level { color: var(--text-main); font-size: 12px; font-weight: 600; min-width: 45px; text-align: center; user-select: none; }
-
-.opacity-control {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(255,255,255,0.05); padding: 5px 15px;
-    border-radius: 30px; border: 1px solid var(--border);
-    animation: fadeIn 0.3s ease;
-}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-.opacity-control .label { color: var(--text-main); font-size: 12px; font-weight: 600; }
-input[type=range] { -webkit-appearance: none; background: transparent; width: 100px; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; margin-top: -6px; }
-input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #334155; border-radius: 2px; }
-
-/* --- 2. AD CONTAINER (Reduced Height) --- */
-.ad-container {
-    position: absolute;
-    bottom: 40px; /* ফুটারের ঠিক ওপরে */
-    left: 50%; /* মাঝখানে আনার জন্য */
-    transform: translateX(-50%); /* একদম সেন্টারে পজিশন */
-    
-    /* তোমার চাওয়া নির্দিষ্ট সাইজ */
-    width: 728px;
-    height: 90px;
-    
-    background-color: #0f172a; /* ব্যাকগ্রাউন্ড */
-    border: 1px solid var(--border);
-    border-bottom: none; /* ফুটারের সাথে মিশে যাবে */
-    border-radius: 8px 8px 0 0; /* উপরের কোণাগুলো একটু গোল */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 900;
-    overflow: hidden;
-}
-
-/* --- LAYOUT FIXES (Scroll Enable) --- */
-body, html {
-    margin: 0; padding: 0;
-    height: 100%; width: 100%;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    /* স্ক্রল এনাবল করা হলো যাতে ইউজার নিচে গিয়ে টেক্সট পড়তে পারে */
-    overflow-y: auto; 
-    overflow-x: hidden;
-}
-
-/* Editor Container Fix */
-#tui-image-editor-container {
-    position: relative; /* Absolute থেকে Relative করা হলো */
-    width: 100vw;
-    height: 100vh; /* পুরো স্ক্রিন নেবে */
-    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-    z-index: 0;
-}
-
-/* Ad Container Positioning */
-.ad-container {
-    position: relative; /* Absolute থেকে Relative */
-    width: 100%;
-    height: 110px;
-    background-color: #0f172a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 900;
-    border-top: 1px solid var(--border);
-    margin-top: -10px; /* গ্যাপ কমানোর জন্য */
-}
-
-/* --- SEO ACCORDION SECTION (New) --- */
-.seo-section {
-    background-color: #0f172a; /* ডার্ক ব্যাকগ্রাউন্ড */
-    padding: 40px 20px;
-    padding-bottom: 80px; /* ফুটারের জন্য জায়গা */
+    background: rgba(255,255,255,0.05);
+    border: var(--glass-border);
     color: var(--text-main);
-    display: flex;
-    justify-content: center;
-    border-top: 1px solid var(--border);
-}
-
-.seo-container {
-    width: 100%;
-    max-width: 800px; /* পড়ার সুবিধার জন্য খুব চওড়া নয় */
-}
-
-/* Accordion Button */
-.accordion {
-    background-color: #1e293b;
-    color: var(--text-main);
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 16px;
-    font-weight: 600;
-    transition: 0.4s;
+    padding: 8px 16px;
     border-radius: 8px;
-    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border: 1px solid var(--border);
+    gap: 8px;
+    font-size: 0.9rem;
 }
 
-/* Active State & Hover */
-.active, .accordion:hover {
-    background-color: #334155;
-    border-color: var(--accent);
+.btn:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
 }
 
-/* Plus Icon (CSS দিয়ে) */
-.accordion:after {
-    content: '\002B'; /* Unicode character for "plus" sign (+) */
-    color: var(--accent);
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-    font-size: 20px;
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background: #4f46e5;
 }
 
-.active:after {
-    content: "\2212"; /* Unicode character for "minus" sign (-) */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
 }
 
-/* Panel (Hidden Content) */
-.panel {
-    padding: 0 18px;
-    background-color: #0f172a;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    border-radius: 0 0 8px 8px;
-    margin-top: -8px;
-    margin-bottom: 10px;
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.6;
+/* Accordion / Content Sections (Hidden by default in Pro mode, visible on scroll/toggle if needed) */
+.content-section {
+    display: none; /* Keeping it cleaner for the webapp feel */
 }
 
-.panel p, .panel ul, .panel ol {
-    padding: 15px 0;
-    margin: 0;
+/* Responsive */
+@media (max-width: 768px) {
+    .custom-toolbar {
+        top: auto;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        flex-direction: row;
+    }
 }
-.panel li { margin-bottom: 5px; margin-left: 20px; }
-
-/* --- FOOTER FIX --- */
-.glass-footer {
-    position: relative; /* Absolute থেকে Relative */
-    width: 100%;
-    height: auto;
-    padding: 15px 0;
-    background: #0b1120;
-    margin-top: auto;
-}
-
-.footer-content { display: flex; align-items: center; justify-content: space-between; width: 95%; max-width: 1400px; font-size: 12px; }
-.copyright { color: var(--text-muted); margin: 0; font-weight: 500; }
-.footer-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
-.footer-links li a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-weight: 500; }
-.footer-links li a:hover { color: var(--accent); }
-
-/* --- 4. EDITOR FIXES --- */
-.tui-image-editor-header-logo, .tui-image-editor-header-buttons { display: none !important; }
-.tui-image-editor-menu { background-color: #0f172a !important; border-right: 1px solid #334155; }
-.tui-image-editor-submenu { background-color: #1e293b !important; border-bottom: 1px solid #334155; }
-.tui-image-editor-container .tui-image-editor-submenu .tui-image-editor-menu-item label { color: #94a3b8 !important; }
-.tui-image-editor-container .tui-image-editor-submenu .tui-image-editor-menu-item.active label { color: #f8fafc !important; }
-.tui-image-editor-range-value { color: #fff !important; background-color: #334155 !important; border: none !important; }

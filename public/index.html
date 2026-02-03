@@ -1,221 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E5B0J4R06B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E5B0J4R06B');
-</script>
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E5B0J4R06B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E5B0J4R06B');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Editor Online - Crop, Resize & Filter | imageeditor.imagecompress.in</title>
+    <title>PixelCraft Pro - Advanced AI Photo Editor</title>
     
-    <!-- Meta Tags & Icons (Same as before) -->
-    <meta name="description" content="Free online AI photo editor. Crop, resize, filter, add text, and edit images professionally directly in your browser.">
-    <link rel="canonical" href="https://imageeditor.imagecompress.in/">
     <link rel="icon" type="image/png" href="icon.png">
     
     <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Toast UI Dependencies -->
     <link rel="stylesheet" href="https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.css">
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.6/tui-color-picker.css" rel="stylesheet">
+    <!-- Custom Pro CSS -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8732458645979427" crossorigin="anonymous"></script>
-<!-- 3. Schema.org Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "Free AI Photo Editor Online",
-          "url": "https://imageeditor.imagecompress.in/",
-          "description": "Professional online photo editor with AI tools. Crop, resize, add filters, text, and layers easily directly in your browser.",
-          "applicationCategory": "DesignApplication",
-          "operatingSystem": "All",
-          "browserRequirements": "Requires JavaScript. Requires HTML5.",
-          "permissions": "internet",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-          },
-          "author": {
-            "@type": "Organization",
-            "name": "ImageCompress.in",
-            "url": "https://www.imagecompress.in/"
-          },
-          "screenshot": "https://imageeditor.imagecompress.in/icon.png",
-          "featureList": "Crop, Resize, Filter, Rotate, Text Overlay, Masking, Image Layering"
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [{
-            "@type": "Question",
-            "name": "Is this photo editor free?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, PixelCraft is completely free to use for unlimited edits with no hidden charges."
-            }
-          }, {
-            "@type": "Question",
-            "name": "Does it support PNG and JPG?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, we support JPG, PNG, WEBP, and GIF formats for editing and exporting."
-            }
-          }, {
-            "@type": "Question",
-            "name": "Will my photos be uploaded to a server?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No, all editing happens locally in your browser for maximum security. Your photos never leave your device."
-            }
-          }]
-        },
-        {
-          "@type": "HowTo",
-          "name": "How to Edit Photos Online",
-          "description": "Step-by-step guide to editing photos using PixelCraft online editor.",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Upload Image",
-              "text": "Click on the 'New' or 'Upload' button to select your image from the device."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Edit Image",
-              "text": "Use the left toolbar to Crop, Resize, Rotate, or Flip your image as needed."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Apply Filters & Effects",
-              "text": "Choose from various filters to enhance colors or add vintage effects to your photo."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Export",
-              "text": "Click the 'Export' button to download your edited image in high quality."
-            }
-          ]
-        }
-      ]
-    }
-    </script>
 </head>
 <body>
 
-    <!-- Header (Same) -->
-    <div class="glass-header">
-        <div class="brand-logo"><img src="logo.png" alt="PixelCraft" class="app-logo"></div>
-        <div class="toolbar-center">
-            <div class="opacity-control" id="opacity-container" style="display: none;">
-                <span class="label">💧 Opacity</span>
-                <input type="range" id="opacity-slider" min="0" max="1" step="0.1" value="1">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="logo-area">
+            <img src="logo.png" alt="Logo">
+            <span>PixelCraft Pro</span>
+        </div>
+        
+        <div class="header-actions">
+            <!-- Custom Top Actions -->
+            <button class="btn" id="btn-undo">↩ Undo</button>
+            <button class="btn" id="btn-redo">↪ Redo</button>
+            <button class="btn btn-primary" id="btn-save">✨ Export HD</button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+        <!-- Floating Tools (Right) -->
+        <div class="custom-toolbar class-glass-panel">
+            <div class="tool-group">
+                <input type="file" id="upload-file" accept="image/*" hidden>
+                <button class="btn-icon btn-primary" onclick="document.getElementById('upload-file').click()" title="Open New Image">📂</button>
+                <button class="btn-icon" id="btn-zoom-in" title="Zoom In">➕</button>
+                <button class="btn-icon" id="btn-zoom-out" title="Zoom Out">➖</button>
+                <button class="btn-icon" id="btn-reset" title="Reset All">🔄</button>
             </div>
         </div>
-        <div class="toolbar-actions">
-            <div class="zoom-group">
-                <button class="btn-icon" id="btn-zoom-out">➖</button>
-                <span class="zoom-level" id="zoom-text">100%</span>
-                <button class="btn-icon" id="btn-zoom-in">➕</button>
-            </div>
-            <div class="divider"></div>
-            <input type="file" id="add-layer-file" accept="image/*" hidden>
-            <button class="btn btn-secondary" onclick="document.getElementById('add-layer-file').click()">🖼️ Add Layer</button>
-            <input type="file" id="upload-file" accept="image/*" hidden>
-            <button class="btn btn-secondary" onclick="document.getElementById('upload-file').click()">📂 New</button>
-            <button class="btn btn-primary" id="btn-save">⬇ Export</button>
-            <div class="divider"></div>
-            <a href="https://www.imagecompress.in/" class="btn btn-home" target="_blank">🏠 Home</a>
-        </div>
-    </div>
 
-    <!-- Editor -->
-    <div id="tui-image-editor-container"></div>
+        <!-- The Editor Canvas -->
+        <div id="tui-image-editor-container"></div>
+    </main>
 
-    <!-- Ad Container -->
-    <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:728px; height:90px"
-             data-ad-client="ca-pub-8732458645979427"
-             data-ad-slot="4975609940"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <!-- 🔥 NEW SEO CONTENT SECTION (4 Accordions) 🔥 -->
-    <div class="seo-section">
-        <div class="seo-container">
-            
-            <!-- 1. How to Use -->
-            <button class="accordion">How to Edit Photos Online?</button>
-            <div class="panel">
-                <p>Editing photos with PixelCraft is simple and fast. Follow these steps:</p>
-                <ol>
-                    <li>Click on the <strong>"📂 New"</strong> button to upload your image.</li>
-                    <li>Use the toolbar on the left to <strong>Crop, Resize, Rotate, or Flip</strong> your image.</li>
-                    <li>Apply <strong>Filters</strong> to enhance colors or add vintage effects.</li>
-                    <li>Add <strong>Text, Shapes, or Icons</strong> to personalize your design.</li>
-                    <li>Click <strong>"⬇ Export"</strong> to download the edited image instantly.</li>
-                </ol>
-            </div>
-
-            <!-- 2. Why Choose Us -->
-            <button class="accordion">Why Choose PixelCraft Editor?</button>
-            <div class="panel">
-                <p>PixelCraft offers a professional-grade photo editing experience directly in your browser:</p>
-                <ul>
-                    <li><strong>100% Free:</strong> No hidden charges or premium subscriptions.</li>
-                    <li><strong>Privacy First:</strong> Images are processed in your browser and not stored on our servers.</li>
-                    <li><strong>No Installation:</strong> Works on Chrome, Firefox, Safari, and Edge without installing software.</li>
-                    <li><strong>AI Tools:</strong> Advanced cropping and filtering capabilities.</li>
-                </ul>
-            </div>
-
-            <!-- 3. FAQ -->
-            <button class="accordion">Frequently Asked Questions (FAQ)</button>
-            <div class="panel">
-                <p><strong>Q: Is this photo editor free?</strong><br>
-                A: Yes, PixelCraft is completely free to use for unlimited edits.</p>
-                <p><strong>Q: Does it support PNG and JPG?</strong><br>
-                A: Yes, we support JPG, PNG, WEBP, and GIF formats.</p>
-                <p><strong>Q: Will my photos be uploaded to a server?</strong><br>
-                A: No, all editing happens locally in your browser for maximum security.</p>
-            </div>
-
-            <!-- 4. Guide -->
-            <button class="accordion">A Guide to Online Image Editing</button>
-            <div class="panel">
-                <p>Online image editing has revolutionized how we handle digital media. Whether you are a graphic designer, a social media influencer, or just someone looking to crop a family photo, web-based tools provide a lightweight alternative to heavy software like Photoshop.</p>
-                <p>With tools like <strong>PixelCraft</strong>, you can perform complex tasks like masking, color correction, and layering without needing a high-end computer.</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Footer (Updated Positioning) -->
-    <footer class="glass-footer">
-        <div class="footer-content">
-            <p class="copyright">© 2025 imagecompress.in All Rights Reserved.</p>
-            <ul class="footer-links">
-                <li><a href="https://www.imagecompress.in/about-us/" target="_blank">About Us</a></li>
-                <li><a href="https://www.imagecompress.in/contact-us/" target="_blank">Contact Us</a></li>
-                <li><a href="https://www.imagecompress.in/disclaimer/" target="_blank">Disclaimer</a></li>
-                <li><a href="https://www.imagecompress.in/privacy-policy/" target="_blank">Privacy Policy</a></li>
-                <li><a href="https://www.imagecompress.in/terms-and-conditions/" target="_blank">Terms & Conditions</a></li>
-            </ul>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.0/fabric.js"></script>
     <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
     <script src="https://uicdn.toast.com/tui-color-picker/v2.2.6/tui-color-picker.js"></script>
