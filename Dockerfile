@@ -1,5 +1,8 @@
 FROM node:18-alpine
 
+# Install curl for Coolify Healthchecks
+RUN apk add --no-cache curl
+
 WORKDIR /app
 
 COPY package*.json ./
