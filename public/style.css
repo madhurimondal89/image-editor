@@ -19,7 +19,8 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* App-like feel */
+    overflow: hidden;
+    /* App-like feel */
 }
 
 /* Glassmorphism Utilities */
@@ -52,7 +53,16 @@ body {
     font-size: 1.2rem;
     color: var(--text-main);
 }
-.logo-area img { height: 32px; }
+
+.logo-area img {
+    height: 32px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
 /* Main Workspace */
 .main-workspace {
@@ -60,7 +70,8 @@ body {
     display: flex;
     height: calc(100vh - 60px);
     position: relative;
-    background: #020617; /* Darker canvas bg */
+    background: #020617;
+    /* Darker canvas bg */
 }
 
 /* Editor Container */
@@ -88,7 +99,7 @@ body {
 
 /* Buttons */
 .btn {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border: var(--glass-border);
     color: var(--text-main);
     padding: 8px 16px;
@@ -103,7 +114,7 @@ body {
 }
 
 .btn:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
 }
 
@@ -111,6 +122,7 @@ body {
     background: var(--primary-color);
     border-color: var(--primary-color);
 }
+
 .btn-primary:hover {
     background: #4f46e5;
 }
@@ -125,7 +137,8 @@ body {
 
 /* Accordion / Content Sections (Hidden by default in Pro mode, visible on scroll/toggle if needed) */
 .content-section {
-    display: none; /* Keeping it cleaner for the webapp feel */
+    display: none;
+    /* Keeping it cleaner for the webapp feel */
 }
 
 /* Responsive */
