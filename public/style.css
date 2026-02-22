@@ -195,3 +195,59 @@ body {
 .btn-primary:hover::after {
     left: 150%;
 }
+
+/* Header Home Link */
+.home-link {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.home-link:hover {
+    color: var(--text-main);
+}
+
+/* App Footer */
+.app-footer {
+    background: #020617;
+    border-top: var(--glass-border);
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    z-index: 100;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-copyright {
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.footer-copyright a.text-white {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-copyright a.text-white:hover {
+    text-decoration: underline;
+}
