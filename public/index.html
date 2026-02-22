@@ -55,6 +55,13 @@
 
         <div class="header-actions">
             <!-- Custom Top Actions -->
+            <input type="file" id="upload-file" accept="image/*" hidden>
+            <button class="btn btn-primary" onclick="document.getElementById('upload-file').click()"
+                title="Open New Image">📂 Open</button>
+            <button class="btn" id="btn-zoom-in" title="Zoom In">➕</button>
+            <button class="btn" id="btn-zoom-out" title="Zoom Out">➖</button>
+            <button class="btn" id="btn-reset" title="Reset All">🔄 Reset</button>
+
             <button class="btn" id="btn-undo">↩ Undo</button>
             <button class="btn" id="btn-redo">↪ Redo</button>
             <button class="btn btn-primary" id="btn-save">✨ Export HD</button>
@@ -63,18 +70,6 @@
 
     <!-- Main Workspace -->
     <main class="main-workspace">
-        <!-- Floating Tools (Right) -->
-        <div class="custom-toolbar class-glass-panel">
-            <div class="tool-group">
-                <input type="file" id="upload-file" accept="image/*" hidden>
-                <button class="btn-icon btn-primary" onclick="document.getElementById('upload-file').click()"
-                    title="Open New Image">📂</button>
-                <button class="btn-icon" id="btn-zoom-in" title="Zoom In">➕</button>
-                <button class="btn-icon" id="btn-zoom-out" title="Zoom Out">➖</button>
-                <button class="btn-icon" id="btn-reset" title="Reset All">🔄</button>
-            </div>
-        </div>
-
         <!-- The Editor Canvas -->
         <div id="tui-image-editor-container"></div>
     </main>
