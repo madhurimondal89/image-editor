@@ -41,7 +41,7 @@ const imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
             name: 'SampleImage'
         },
         theme: darkTheme,
-        menuBarPosition: 'bottom', // Dock to bottom like pro apps
+        menuBarPosition: 'left', // Dock to left to prevent overlap
         menu: [
             'crop', 'flip', 'rotate', 'draw', 'shape', 'icon', 'text', 'mask', 'filter'
         ],
