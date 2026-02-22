@@ -68,7 +68,6 @@ body {
 .main-workspace {
     flex: 1;
     display: flex;
-    height: calc(100vh - 60px);
     position: relative;
     background: #020617;
     /* Darker canvas bg */
@@ -150,4 +149,17 @@ body {
         transform: translateX(50%);
         flex-direction: row;
     }
+}
+
+/* AdSense Banner Container */
+.ad-container {
+    width: 100%;
+    background: #020617;
+    /* match darker canvas style or header style */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: var(--glass-border);
+    min-height: 90px;
+    z-index: 100;
 }
